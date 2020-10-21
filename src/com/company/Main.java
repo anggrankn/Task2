@@ -1,20 +1,19 @@
 package com.company;
+import com.sun.org.apache.xpath.internal.objects.XBoolean;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        double R = readRadius();
+        double r = readRadius();
         double c = readHypotenuse();
+        displayResult(checkInscribedRadius(r, c));
+    }
 
-        if (R > 0 && c > 0) {
-            double a = getSideA(c);
-            if (R <= getMaxRadius(a, c)) {
-                System.out.println("Вписать можно.");
-            } else {
-                System.out.println("Вписать нельзя.");
-            }
-        }
+    public static boolean checkInscribedRadius(double r, double c) {
+        double a = getSideA(c);
+        return (r <= getMaxRadius(a, c));
     }
 
     public static double readRadius() {
@@ -29,6 +28,10 @@ public class Main {
         return scanner.nextDouble();
     }
 
+    public static void displayResult(boolean result) {
+        System.out.printf("Можно ли вписать: %b", result);
+    }
+    
     public static double getSideA(double c) {
         return c / Math.sqrt(2);
     }
